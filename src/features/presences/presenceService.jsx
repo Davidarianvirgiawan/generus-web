@@ -56,7 +56,8 @@ const getPresencesByEventId = async (token, {
   ancestorOrganizationId = '',
   organizationId = '',
   sex = '',
-  userId = ''
+  userId = '',
+  grade = '',
 } = {}) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -69,6 +70,7 @@ const getPresencesByEventId = async (token, {
     organizationId,
     sex,
     userId,
+    grade,
   }).toString()
 
   const response = await API.get(`${API_URL}/${eventId}/presences?${queryParams}`, config)
@@ -92,6 +94,7 @@ const downloadPresenceData = async (eventId, token, {
   sex = '',
   ancestorOrganizationId = '',
   organizationId = '',
+  grade = '',
 }) => {
   const config = {
     headers: {
@@ -104,6 +107,7 @@ const downloadPresenceData = async (eventId, token, {
     sex,
     ancestorOrganizationId,
     organizationId,
+    grade,
   }).toString()
 
   const response = await API.get(`${API_URL}/${eventId}/presences/download?${queryParams}`, config)

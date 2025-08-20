@@ -43,6 +43,7 @@ import PopDialog from "./PopDialog"
 import { getppd, getppk } from "../features/organizations/organizationSlice"
 import capitalize from "capitalize"
 import gradeShortEnum from "../enums/gradeShortEnum"
+import gradeEnum from "../enums/gradeEnum"
 
 function PresenceList(props) {
   const { event, user } = props
@@ -72,6 +73,7 @@ function PresenceList(props) {
 
   const [drawerFilters, setDrawerFilters] = useState({
     ancestorOrganizationId: initAncestorOrganizationId,
+    grade: [],
   })
   const [filters, setFilters] = useState({
     page: 1,
@@ -79,7 +81,7 @@ function PresenceList(props) {
     ancestorOrganizationId: initAncestorOrganizationId,
     organizationId: "",
     sex: "",
-    grade: "",
+    grade: [],
     eventId: event.id,
   })
 
@@ -206,10 +208,25 @@ function PresenceList(props) {
       }))
     }
 
-    setDrawerFilters((prevState) => ({
-      ...prevState,
-      [key]: value === drawerFilters[key] ? "" : value,
-    }))
+    if (key === "grade") {
+      if (drawerFilters.grade.includes(value)) {
+        const grades = drawerFilters.grade.filter((grade) => grade !== value)
+        setDrawerFilters((prevState) => ({
+          ...prevState,
+          grade: grades,
+        }))
+      } else {
+        setDrawerFilters((prevState) => ({
+          ...prevState,
+          grade: [...prevState.grade, value],
+        }))
+      }
+    } else {
+      setDrawerFilters((prevState) => ({
+        ...prevState,
+        [key]: value === prevState[key] ? "" : value,
+      }))
+    }
   }
 
   const updateStatus = (attender, status) => () => {
@@ -282,6 +299,19 @@ function PresenceList(props) {
             onClick={handleFilterObject("sex", 0)}
           />
         </Grid>
+      </Grid>
+
+      <Grid container spacing={1} pb={3} pl={1}>
+        {Object.keys(gradeEnum).map((key) => (
+          <Grid item key={key}>
+            <Chip
+              label={gradeEnum[key]}
+              color='info'
+              variant={drawerFilters.grade.includes(key) ? "solid" : "outlined"}
+              onClick={handleFilterObject("grade", key)}
+            />
+          </Grid>
+        ))}
       </Grid>
 
       {isPPGevent && isPPG && (
