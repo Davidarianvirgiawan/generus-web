@@ -77,7 +77,7 @@ function Event() {
           <Grid item xs={9}>
             <TextField
               name='search'
-              placeholder={`Cari kegiatan...`}
+              placeholder={`Cari nama kegiatan, PPD atau PPK...`}
               size='small'
               value={searchBar}
               onChange={onChange}
