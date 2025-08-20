@@ -1,3 +1,4 @@
+import { Search } from '@mui/icons-material'
 import API from '../../api'
 
 const API_URL = '/events'
@@ -15,10 +16,11 @@ const listEventsGenerus = async (token) => {
 
 // List evenets admin
 const listEvents = async (params, token) => {
-  const { page, isGroupHead, groupId } = params
+  const { page, isGroupHead, groupId, search } = params
   let queryParams = `?page=${page}`
   if (isGroupHead) queryParams += `&isGroupHead=${isGroupHead}`
   if (groupId) queryParams += `&groupId=${groupId}`
+  if (search) queryParams += `&search=${search}`
   
   const config = {
     headers: {

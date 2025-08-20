@@ -1,4 +1,12 @@
-import { Button, CircularProgress, Grid, Typography } from "@mui/material"
+import {
+  Button,
+  CircularProgress,
+  Fab,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material"
+import AddRoundedIcon from "@mui/icons-material/AddRounded"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -14,23 +22,43 @@ function Event() {
     (state) => state.listEvents
   )
   const [page, setPage] = useState(1)
+  const [searchBar, setSearchBar] = useState("")
+  const [filters, setFilters] = useState({
+    page: 1,
+    search: "",
+  })
+
+  const onChange = (e) => {
+    setSearchBar(e.target.value)
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    setFilters((prevState) => ({
+      ...prevState,
+      search: searchBar,
+    }))
+    dispatch(reset())
+  }
 
   useEffect(() => {
     if (!user) navigate("/login")
     user.currentPosition.type === "ADMIN"
-      ? dispatch(listEvents({ page: 1, isGroupHead: 'false' }))
-      : dispatch(listEvents({ page: 1, groupId: 'null' }))
+      ? dispatch(listEvents({ ...filters, page: 1, isGroupHead: "false" }))
+      : dispatch(listEvents({ ...filters, page: 1, groupId: "null" }))
     return () => {
       dispatch(reset())
     }
-  }, [user, navigate, dispatch])
+  }, [user, navigate, dispatch, filters])
 
   const fetchMoreEvents = () => {
     if (hasNextPage) {
       setPage((prevPage) => prevPage + 1)
       user.currentPosition.type === "ADMIN"
-        ? dispatch(listEvents({ page: page + 1, isGroupHead: 'false' }))
-        : dispatch(listEvents({ page: page + 1, groupId: 'null' }))
+        ? dispatch(
+            listEvents({ ...filters, page: page + 1, isGroupHead: "false" })
+          )
+        : dispatch(listEvents({ ...filters, page: page + 1, groupId: "null" }))
     }
   }
 
@@ -44,19 +72,32 @@ function Event() {
         Jadwal Kegiatan
       </Typography>
 
-      {user.currentPosition.type === "ADMIN" && (
-        <Button
-          size='medium'
-          style={{ margin: "20px auto" }}
-          type='submit'
-          variant='contained'
-          color='info'
-          fullWidth
-          onClick={onClick}
-        >
-          Tambah
-        </Button>
-      )}
+      <form onSubmit={onSubmit}>
+        <Grid container paddingBottom={2} spacing={2}>
+          <Grid item xs={9}>
+            <TextField
+              name='search'
+              placeholder={`Cari kegiatan...`}
+              size='small'
+              value={searchBar}
+              onChange={onChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              size='small'
+              type='submit'
+              variant='contained'
+              color='info'
+              fullWidth
+              style={{ paddingTop: "9px", paddingBottom: "8px" }}
+            >
+              Cari
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
 
       {!isSuccess && (
         <Grid align='center' sx={{ pt: 1.5 }}>
@@ -89,6 +130,18 @@ function Event() {
         >
           Belum ada kegiatan.
         </Typography>
+      )}
+
+      {user.currentPosition.type === "ADMIN" && (
+        <Fab
+          size='large'
+          color='info'
+          aria-label='create event'
+          onClick={onClick}
+          sx={{ position: "fixed", bottom: 76, right: 16 }}
+        >
+          <AddRoundedIcon fontSize='large' />
+        </Fab>
       )}
     </>
   )
