@@ -148,7 +148,7 @@ function PresenceList(props) {
       } else {
         setSearch([])
       }
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timeoutId)
   }, [dispatch, event.organizationId, search])
