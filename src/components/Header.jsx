@@ -11,7 +11,7 @@ function Header() {
             sx={{ flexGrow: 1 }}
             translate='no'
           >
-            P I G A R U
+            G E N E R U S K U
           </Typography>
         </Toolbar>
       </AppBar>

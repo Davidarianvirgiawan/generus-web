@@ -32,7 +32,7 @@ function Footer() {
     >
       <Grid item xs={12}>
         <Typography sx={{ color: "#76859B", fontSize: 12 }}>
-          <b translate='no'>PIGARU</b> | Pusat Informasi Generus Bandung Selatan
+          <b translate='no'>GENERUSKU</b> | Pusat Informasi Generus Belopa
           I
         </Typography>
       </Grid>
