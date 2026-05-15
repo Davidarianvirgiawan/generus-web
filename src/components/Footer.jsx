@@ -32,8 +32,7 @@ function Footer() {
     >
       <Grid item xs={12}>
         <Typography sx={{ color: "#76859B", fontSize: 12 }}>
-          <b translate='no'>GENERUSKU</b> | Pusat Informasi Generus Belopa
-          I
+          <b translate='no'>SI-PENA</b> | Sistem Informasi Pembinaan Generus Belopa
         </Typography>
       </Grid>
 
@@ -42,7 +41,7 @@ function Footer() {
           variant='contained'
           startIcon={<ChatIcon />}
           size='small'
-          onClick={() => openInNewTab("https://forms.gle/aKzq8NPP3nEeB8wQ6")}
+          onClick={() => openInNewTab("https://forms.gle/cX1TzQEpvKhwDDw7A")}
         >
           Saran & Pertanyaan
         </FeedbackButton>
