@@ -62,6 +62,14 @@ function RegisterOptions() {
                 <Typography variant='subtitle2'>Generus yang sudah lulus tes muballigh registrasi "Sebagai Generus" dan "Sebagai Pengajar".</Typography>
               </Grid>
             </Grid>
+            <Grid container>
+              <Grid item xs={1}>
+                <Typography variant='subtitle2'>4.</Typography>
+              </Grid>
+              <Grid item xs={11}>
+                <Typography variant='subtitle2'>Orang tua registrasi "Sebagai Generus", lalu pilih posisi "ORANGTUA".</Typography>
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       </Grid>

@@ -19,6 +19,11 @@ import Footer from '../components/Footer'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import References from '../pages/References'
+import ParentActivities from '../pages/ParentActivities'
+import MyParents from '../pages/MyParents'
+import HomeActivityReport from '../pages/HomeActivityReport'
+import ManageHomeActivities from '../pages/ManageHomeActivities'
+import MusdaAttendance from '../pages/MusdaAttendance'
 import Kibana from '../components/Kibana'
 import { Container } from '@mui/material'
 
@@ -54,6 +59,11 @@ function MainLayout() {
           <Route path='/reset-passwords' element={<ResetPasswordList />} />
           <Route path='/decide-position' element={<DecidePosition />} />
           <Route path='/references' element={<References />} />
+          <Route path='/parent-activities' element={<ParentActivities />} />
+          <Route path='/my-parents' element={<MyParents />} />
+          <Route path='/home-activity-report' element={<HomeActivityReport />} />
+          <Route path='/manage-home-activities' element={<ManageHomeActivities />} />
+          <Route path='/musda-attendance' element={<MusdaAttendance />} />
           <Route path='/' element={<Menu />} />
         </Routes>
       </Container>

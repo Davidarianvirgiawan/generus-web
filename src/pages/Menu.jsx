@@ -8,6 +8,9 @@ import EventIcon from "@mui/icons-material/EventRounded"
 import RestPasswordIcon from "@mui/icons-material/LockResetRounded"
 import QueryStatsIcon from "@mui/icons-material/QueryStatsRounded"
 import BookIcon from "@mui/icons-material/BookOutlined"
+import ChecklistIcon from "@mui/icons-material/ChecklistRounded"
+import GroupsIcon from "@mui/icons-material/GroupsOutlined"
+import HomeWorkIcon from "@mui/icons-material/HomeWorkOutlined"
 
 function Menu() {
   const dispatch = useDispatch()
@@ -17,10 +20,12 @@ function Menu() {
   useEffect(() => {
     if (!user || !user.exp) navigate("/login")
     if (user?.currentPosition?.type === "GENERUS") navigate("/user-completion")
+    if (user?.currentPosition?.type === "ORANGTUA") navigate("/parent-activities")
   }, [user, navigate, dispatch])
 
   if (!user) return null
 
+  const isAdmin = user?.currentPosition?.type === "ADMIN"
   const menuItems = [
     {
       to: "/events",
@@ -52,6 +57,25 @@ function Menu() {
       icon: <QueryStatsIcon fontSize='large' color='info' />,
       text: "Dashboard",
     },
+    ...(isAdmin
+      ? [{
+          to: "/manage-home-activities",
+          icon: <HomeWorkIcon fontSize='large' color='info' />,
+          text: "Kegiatan Rumah",
+        },
+        {
+          to: "/home-activity-report",
+          icon: <ChecklistIcon fontSize='large' color='info' />,
+          text: "Rekap Centang",
+        }]
+      : []),
+    ...(isAdmin && user?.currentPosition?.organizationLevel === 0
+      ? [{
+          to: "/musda-attendance",
+          icon: <GroupsIcon fontSize='large' color='info' />,
+          text: "Absen Musppg",
+        }]
+      : []),
   ]
 
   return (

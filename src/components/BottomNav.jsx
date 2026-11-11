@@ -15,6 +15,8 @@ import EventIcon from "@mui/icons-material/EventRounded"
 import HomeIcon from "@mui/icons-material/HomeMaxRounded"
 import CompletionIcon from "@mui/icons-material/GradingOutlined"
 import ArrowBackIcon from "@mui/icons-material/ArrowBackRounded"
+import HomeWorkIcon from "@mui/icons-material/HomeWorkOutlined"
+import FamilyIcon from "@mui/icons-material/FamilyRestroomOutlined"
 import BookIcon from "@mui/icons-material/BookOutlined"
 
 function BottomNav() {
@@ -24,10 +26,21 @@ function BottomNav() {
 
   const isGenerus = user?.currentPosition?.type === "GENERUS"
 
+  const isParent = user?.currentPosition?.type === "ORANGTUA"
+
   const navItems = (() => {
     if (user && alreadyDecidedPosition) {
+      if (isParent) {
+        return [
+          { to: "/parent-activities", label: "Kegiatan Anak", icon: <HomeWorkIcon fontSize="small" /> },
+          { to: "/references", label: "Pustaka", icon: <BookIcon fontSize="small" /> },
+          { to: "/profile", label: "Profile", icon: <ProfileIcon fontSize="small" /> },
+        ]
+      }
+
       if (isGenerus) {
         return [
+          { to: "/my-parents", label: "Orang Tua", icon: <FamilyIcon fontSize="small" /> },
           { to: "/events", label: "Kegiatan", icon: <EventIcon fontSize="small" /> },
           { to: "/user-completion", label: "Capaian Materi", icon: <CompletionIcon fontSize="small" /> },
           { to: "/references", label: "Pustaka", icon: <BookIcon fontSize="small" /> },
